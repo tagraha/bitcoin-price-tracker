@@ -27,7 +27,7 @@ export default function reducer(state = initialObj, action) {
         ...state,
         validInput: inputNumber,
         buyPrice: price,
-        userMoney: precisionRound(dollar, 3)
+        userMoney: precisionRound(dollar, 5)
       }
     }
 
