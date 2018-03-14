@@ -1,0 +1,17 @@
+.repolist {
+  background-color: #fff;
+}
+
+.header {
+  color: #fff;
+  background-color: #209cee;
+  padding: 3px;
+}
+
+.repo-item {
+  padding: 12px;
+}
+
+.heading-font-size {
+  font-size: 2rem;
+}

@@ -1,0 +1,24 @@
+{
+  "short_name": "Glints",
+  "name": "Glints",
+  "icons": [{
+      "src": "https://upload.wikimedia.org/wikipedia/commons/d/df/GLINTS_LOGO293.png",
+      "type": "image/png",
+      "sizes": "32x32"
+     },
+     {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/d/df/GLINTS_LOGO293.png",
+      "type": "image/png",
+      "sizes": "96x96"
+     },
+     {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/d/df/GLINTS_LOGO293.png",
+      "type": "image/png",
+      "sizes": "230x230"
+     }
+  ],
+  "start_url": "index.html?launcher=true",
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "#999999"
+}

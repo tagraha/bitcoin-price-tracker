@@ -1,0 +1,23 @@
+{
+  "projectName": "bitcoin-price-tracker",
+  "projectOwner": "tagraha",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "readme.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "tagraha",
+      "name": "Tirta Nugraha",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3034375?v=4",
+      "profile": "http://www.betotally.com/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ]
+}
