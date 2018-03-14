@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Route } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import pure from 'recompose/pure';
@@ -174,6 +174,7 @@ class Home extends Component {
                 </tr>
               </tbody>
             </table>
+            <NavLink to="/about">about the author</NavLink>
           </div>
         </div>
       </div>

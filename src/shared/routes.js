@@ -1,5 +1,5 @@
 import Home from './home';
-import Converter from './converter';
+import About from './about';
 import NotFound from './404/NotFound';
 
 const routes = [
@@ -9,8 +9,8 @@ const routes = [
     component: Home,
   },
   {
-    path: '/converter',
-    component: Converter,
+    path: '/about',
+    component: About,
   },
   {
     component: NotFound,
