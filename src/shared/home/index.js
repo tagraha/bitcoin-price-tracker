@@ -17,8 +17,12 @@ let debounce;
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      connectionState: 'off'
+    }
     this.openSocket = this.openSocket.bind(this);
     this.handleBtcChange = this.handleBtcChange.bind(this);
+    this.updateUserMoney = this.updateUserMoney.bind(this);
   }
 
   componentDidMount() {
@@ -33,26 +37,41 @@ class Home extends Component {
     }
 
     ws.onerror = () => {
-      alert("websocket connection error");
+      // alert("websocket connection error");
+      console.log('websocket connection closed');
     }
 
     // listen to onmessage event
     ws.onmessage = evt => { 
       const data = JSON.parse(evt.data);
-      this.props.dispatch(tickerUpdate(data));
+      const { converter, ticker, dispatch } = this.props;
+      this.updateUserMoney(data, () => {
+        dispatch(convertBtc(converter.inputText, ticker.buy));
+      })
     };
   }
 
   handleBtcChange(ev) {
-    ws.close();
-    const { dispatch } = this.props;
+    const { dispatch, ticker } = this.props;
     const input = ev.target.value;
     dispatch(handleInputChange(input));
 
+    const isNumber = !isNaN(input);
     clearTimeout(debounce);
     debounce = setTimeout(() => {
+      if (isNumber) {
+        dispatch(convertBtc(input, ticker.buy));
+      }
+    }, 100); // debounce input for 100ms
+  }
 
-    }, 750); // debounce input for 150ms
+  updateUserMoney(data, cb) {
+    const { dispatch } = this.props;
+    this.props.dispatch(tickerUpdate(data));
+
+    if (cb) {
+      cb();
+    }
   }
 
   componentWillUnmount() {
@@ -82,13 +101,18 @@ class Home extends Component {
           <div className="column">
             <input
               type="text"
-              placeholder="insert BTC ammount"
+              placeholder="insert BTC ammount. e.g: 0.02"
               onChange={this.handleBtcChange}
               value={converter.inputText}
-            />
+            /> <br/>
+            <small>*we're using buy price to calculate the conversion</small>
+            {!isNaN(converter.userMoney) &&
+              <h3>USD&nbsp;{converter.userMoney}</h3>
+            }
           </div>
 
           <div className="column">
+            <small>websocket connection: {}</small>
             <table>
               <tbody>
                 <tr>
