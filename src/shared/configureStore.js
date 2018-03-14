@@ -4,11 +4,11 @@ import thunk from 'redux-thunk';
 // Logger with default options
 import logger from 'redux-logger';
 
-import repos from './../../redux/repos';
+import converter from './../../redux/converter';
 import ticker from './../../redux/ticker';
 
 const reducer = combineReducers({
-  repos,
+  converter,
   ticker
 })
 
