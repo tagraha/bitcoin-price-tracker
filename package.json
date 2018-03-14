@@ -1,7 +1,7 @@
 {
-  "name": "react-scratch",
-  "version": "1.5.0",
-  "description": "minimal setup for react, webpack, babel",
+  "name": "bitcoin-price-tracker",
+  "version": "1.0.0",
+  "description": "glints test",
   "main": "server.js",
   "scripts": {
     "release:major": "changelog -M -u https://github.com/tagraha/react-scratch && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin --tags",
