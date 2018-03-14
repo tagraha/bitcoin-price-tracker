@@ -4,7 +4,45 @@ import pure from 'recompose/pure';
 import Helmet from 'react-helmet';
 import './index.css';
 
+let ws;
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.handleWebsocket = this.handleWebsocket.bind(this);
+    this.openSocket = this.openSocket.bind(this);
+    this.signalReceived = this.signalReceived.bind(this);
+  }
+
+  componentDidMount() {
+    this.openSocket();
+  }
+
+  openSocket() {
+    ws = new WebSocket('wss://real.okcoin.com:10440/websocket');
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({'event':'addChannel','channel':'ok_sub_spot_btc_usd_ticker'}));
+    }
+
+    ws.onerror = () => {
+      alert("websocket connection error");
+    }
+
+    // listen to onmessage event
+    ws.onmessage = evt => { 
+      const data = JSON.parse(evt.data);
+      console.log(data);
+    };
+  }
+
+  signalReceived(data) {
+    console.log(data);
+  }
+
+  componentWillUnmount() {
+    ws.close();
+  }
+
   render() {
     return (
       <div className="row">
@@ -17,28 +55,9 @@ class Home extends Component {
             <Link to="/repo">tagraha repo (async demo)</Link>
           </p>
         </div>
-        <div className="column">
-          <blockquote>
-            <p><em>Sometimes when I close my eyes, I cant see :</em></p>
-          </blockquote>
-          <p>
-            Twice a year we invest a small amount of mana in a large number of wizards (recently
-            105).
-          </p>
-          <p>
-            The wizards move to the Highlands of Scotland for 3 months, during which we work
-            intensively with them to get the magic into the best possible shape and refine their
-            pitch to patrons. Each cycle culminates in Demo Day, when the wizards present their
-            magic to a carefully selected, invite-only audience.
-          </p>
-          <p>
-            But WC doesn’t end on Demo Day. We and the WC alumni network continue to help mages for
-            the life of their magic, and beyond.
-          </p>
-        </div>
       </div>
     );
   }
 }
 
-export default pure(Home);
+export default Home;
