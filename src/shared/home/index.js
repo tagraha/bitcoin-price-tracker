@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import pure from 'recompose/pure';
 import Helmet from 'react-helmet';
+import get from 'lodash/get';
+
+import { tickerUpdate } from './../../../redux/ticker';
+
 import './index.css';
 
 let ws;
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.handleWebsocket = this.handleWebsocket.bind(this);
     this.openSocket = this.openSocket.bind(this);
-    this.signalReceived = this.signalReceived.bind(this);
   }
 
   componentDidMount() {
@@ -31,12 +36,8 @@ class Home extends Component {
     // listen to onmessage event
     ws.onmessage = evt => { 
       const data = JSON.parse(evt.data);
-      console.log(data);
+      this.props.dispatch(tickerUpdate(data));
     };
-  }
-
-  signalReceived(data) {
-    console.log(data);
   }
 
   componentWillUnmount() {
@@ -44,6 +45,7 @@ class Home extends Component {
   }
 
   render() {
+    const { ticker } = this.props;
     return (
       <div className="row">
         <Helmet
@@ -51,6 +53,13 @@ class Home extends Component {
         />
         <div className="column">
           <p className="selected">About</p>
+          <span>buy : {ticker.buy}</span> <br />
+          <span>sell : {ticker.sell}</span> <br />
+          <span>high : {ticker.high}</span> <br />
+          <span>low : {ticker.low}</span> <br />
+          <span>open : {ticker.open}</span> <br />
+          <span>close : {ticker.close}</span> <br /><br />
+          <span>change : {ticker.change}</span>
           <p>
             <Link to="/repo">tagraha repo (async demo)</Link>
           </p>
@@ -60,4 +69,14 @@ class Home extends Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  ticker: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  ticker: state.ticker,
+});
+
+export default connect(mapStateToProps)(pure(Home));
+// export default pure(Home);
