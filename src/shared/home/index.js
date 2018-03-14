@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import pure from 'recompose/pure';
@@ -8,14 +8,17 @@ import Helmet from 'react-helmet';
 import get from 'lodash/get';
 
 import { tickerUpdate } from './../../../redux/ticker';
+import { handleInputChange, convertBtc } from './../../../redux/converter';
 
 import './index.css';
 
 let ws;
+let debounce;
 class Home extends Component {
   constructor(props) {
     super(props);
     this.openSocket = this.openSocket.bind(this);
+    this.handleBtcChange = this.handleBtcChange.bind(this);
   }
 
   componentDidMount() {
@@ -40,29 +43,85 @@ class Home extends Component {
     };
   }
 
+  handleBtcChange(ev) {
+    ws.close();
+    const { dispatch } = this.props;
+    const input = ev.target.value;
+    dispatch(handleInputChange(input));
+
+    clearTimeout(debounce);
+    debounce = setTimeout(() => {
+
+    }, 750); // debounce input for 150ms
+  }
+
   componentWillUnmount() {
     ws.close();
   }
 
   render() {
-    const { ticker } = this.props;
+    const { converter, ticker } = this.props;
     return (
-      <div className="row">
+      <div id="homePage">
         <Helmet
-          title="Welcome to our Homepage"
+          title="Glints - BTCUSD converter"
         />
-        <div className="column">
-          <p className="selected">About</p>
-          <span>buy : {ticker.buy}</span> <br />
-          <span>sell : {ticker.sell}</span> <br />
-          <span>high : {ticker.high}</span> <br />
-          <span>low : {ticker.low}</span> <br />
-          <span>open : {ticker.open}</span> <br />
-          <span>close : {ticker.close}</span> <br /><br />
-          <span>change : {ticker.change}</span>
-          <p>
-            <Link to="/repo">tagraha repo (async demo)</Link>
-          </p>
+
+        <div className="row">
+          <div className="column">
+            <h1>
+              BTC price ticker
+            </h1>
+            <div className="header">
+              <strong>websocket connection wss://real.okcoin.com:10440/websocket</strong>
+            </div>
+          </div>
+        </div>
+
+        <div className="row" style={{ marginTop: 24 }}>
+          <div className="column">
+            <input
+              type="text"
+              placeholder="insert BTC ammount"
+              onChange={this.handleBtcChange}
+              value={converter.inputText}
+            />
+          </div>
+
+          <div className="column">
+            <table>
+              <tbody>
+                <tr>
+                  <td>Buy</td>
+                  <td>{ticker.buy}</td>
+                </tr>
+                <tr>
+                  <td>Sell</td>
+                  <td>{ticker.sell}</td>
+                </tr>
+                <tr>
+                  <td>high</td>
+                  <td>{ticker.high}</td>
+                </tr>
+                <tr>
+                  <td>low</td>
+                  <td>{ticker.low}</td>
+                </tr>
+                <tr>
+                  <td>open</td>
+                  <td>{ticker.open}</td>
+                </tr>
+                <tr>
+                  <td>close</td>
+                  <td>{ticker.close}</td>
+                </tr>
+                <tr>
+                  <td>change</td>
+                  <td>{ticker.change}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );
@@ -71,11 +130,13 @@ class Home extends Component {
 
 Home.propTypes = {
   ticker: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  converter: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   ticker: state.ticker,
+  converter: state.converter
 });
 
 export default connect(mapStateToProps)(pure(Home));
