@@ -175,6 +175,8 @@ class Home extends Component {
               </tbody>
             </table>
             <NavLink to="/about">about the author</NavLink>
+            <br/>
+            <small>open your console, we're using redux logger</small>
           </div>
         </div>
       </div>
