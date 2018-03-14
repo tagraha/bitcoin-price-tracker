@@ -8,8 +8,10 @@ const CONVERT_BTC_USD = "CONVERT_BTC_USD";
 const initialObj = {
   inputText: '',
   validInput: 0,
+  fullDecimal: 0,
   buyPrice: 0,
-  userMoney: 0
+  userMoney: 0,
+  decPart: '0'
 }
 
 // Reducer
@@ -23,11 +25,15 @@ export default function reducer(state = initialObj, action) {
       const inputNumber = parseFloat(get(action, 'payload'));
       const price = parseFloat(get(action, 'price'));
       const dollar = parseFloat(inputNumber * price);
+      const precisionDollar = precisionRound(dollar, 5);
+      const decPart = (precisionDollar+"").split(".")[1];
       return {
         ...state,
         validInput: inputNumber,
         buyPrice: price,
-        userMoney: precisionRound(dollar, 5)
+        userMoney: precisionRound(precisionDollar, 0),
+        fullDecimal: precisionDollar,
+        decPart: decPart ? decPart : '0'
       }
     }
 

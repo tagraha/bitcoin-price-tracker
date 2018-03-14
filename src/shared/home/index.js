@@ -18,27 +18,40 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      connectionState: 'off'
+      connectionState: false,
+      moneyColor: 'green'
     }
     this.openSocket = this.openSocket.bind(this);
     this.handleBtcChange = this.handleBtcChange.bind(this);
     this.updateUserMoney = this.updateUserMoney.bind(this);
+    this.closeConnection = this.closeConnection.bind(this);
   }
 
   componentDidMount() {
     this.openSocket();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { converter } = this.props;
+    if (nextProps.converter.fullDecimal > converter.fullDecimal) {
+      this.setState({ moneyColor: 'green' });
+    } else {
+      this.setState({ moneyColor: 'red' });
+    }
+  }
+
   openSocket() {
     ws = new WebSocket('wss://real.okcoin.com:10440/websocket');
 
     ws.onopen = () => {
+      this.setState({ connectionState: true });
       ws.send(JSON.stringify({'event':'addChannel','channel':'ok_sub_spot_btc_usd_ticker'}));
     }
 
     ws.onerror = () => {
       // alert("websocket connection error");
       console.log('websocket connection closed');
+      this.setState({ connectionState: false });
     }
 
     // listen to onmessage event
@@ -74,12 +87,17 @@ class Home extends Component {
     }
   }
 
+  closeConnection() {
+    ws.close()
+  }
+
   componentWillUnmount() {
-    ws.close();
+    this.closeConnection();
   }
 
   render() {
     const { converter, ticker } = this.props;
+    const { connectionState } = this.state;
     return (
       <div id="homePage">
         <Helmet
@@ -107,12 +125,23 @@ class Home extends Component {
             /> <br/>
             <small>*we're using buy price to calculate the conversion</small>
             {!isNaN(converter.userMoney) &&
-              <h3>USD&nbsp;{converter.userMoney}</h3>
+              <h3 style={{ color: this.state.moneyColor }}>USD&nbsp;{`${converter.userMoney}`}<small>.{converter.decPart}</small></h3>
             }
           </div>
 
           <div className="column">
-            <small>websocket connection: {}</small>
+            <small className="clearfix">
+              websocket connection: {connectionState ? <ConnectionOn /> : <ConnectionOff />}
+                <div className="float-right">
+                  <button
+                    onClick={this.openSocket} 
+                    className="button button-outline"
+                    style={smallButton}
+                    disabled={connectionState}
+                  >open</button>
+                  <button onClick={this.closeConnection} disabled={!connectionState} className="button" style={smallButton}>close</button>
+                </div>
+              </small>
             <table>
               <tbody>
                 <tr>
@@ -152,6 +181,18 @@ class Home extends Component {
   }
 }
 
+const ConnectionOn = () => {
+  return (
+    <small style={green}>on</small>
+  )
+}
+
+const ConnectionOff = () => {
+  return (
+    <small style={red}>off</small>
+  )
+}
+
 Home.propTypes = {
   ticker: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   converter: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
@@ -162,6 +203,24 @@ const mapStateToProps = state => ({
   ticker: state.ticker,
   converter: state.converter
 });
+
+const smallButton = {
+  fontSize: '.8rem',
+  height: '2.8rem',
+  lineHeight: '2.8rem',
+  padding: '0 1.5rem',
+  marginLeft: 6
+}
+
+const green = {
+  color: '#28d228',
+  fontWeight: 'bold'
+}
+
+const red = {
+  color: 'red',
+  fontWeight: 'bold'
+}
 
 export default connect(mapStateToProps)(pure(Home));
 // export default pure(Home);
