@@ -14,7 +14,7 @@ import sourceMapSupport from "source-map-support";
 import reactHelmet from 'react-helmet';
 import offline from './offline.js';
 
-// import manifest from '../../static/site.webmanifest.json';
+// import sw from '../../sw.js';
 
 if(process.env.NODE_ENV === 'development') {
   sourceMapSupport.install();
@@ -26,8 +26,8 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.static("static"));
 
-// app.get('/manifest.json', function(req, res) {
-//   res.status(200).send(manifest);
+// app.get('/sw.js', function(req, res) {
+//   res.status(200).send(sw);
 // })
 
 app.get("*", (req, res, next) => {
@@ -70,7 +70,7 @@ app.get("*", (req, res, next) => {
         let head = reactHelmet.rewind();
 
         res.send(`<!DOCTYPE html>
-          <html>
+          <html lang="en">
             <head>
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -99,6 +99,7 @@ app.get("*", (req, res, next) => {
                 window.ASYNC_COMPONENTS_STATE = ${serialize(asyncState)}
               </script>
               <script>${offline.serviceWorker}</script>
+              <script>${offline.swGlints}</script>
             </body>
           </html>
         `);

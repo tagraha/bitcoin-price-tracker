@@ -29,7 +29,7 @@ const browserConfig = {
           use: [
             {
               loader: "css-loader",
-              options: { importLoaders: 1 }
+              options: { importLoaders: 1, minimize: true }
             },
             {
               loader: "postcss-loader",
@@ -61,6 +61,10 @@ const browserConfig = {
       ServiceWorker: {
         minify: false,
         fileName: 'sw-glints.js',
+        output: 'public/sw-glints.js'
+      },
+      AppCache: {
+        directory: 'public/appcache'
       }
     })
   ]
@@ -90,7 +94,8 @@ const serverConfig = {
         test: /\.css$/,
         use: [
           {
-            loader: "css-loader/locals"
+            loader: "css-loader/locals",
+            options: { minimize: true }
           }
         ]
       },

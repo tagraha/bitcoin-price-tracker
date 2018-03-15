@@ -117,7 +117,9 @@ class Home extends Component {
 
         <div className="row" style={{ marginTop: 24 }}>
           <div className="column">
+            <label for="btcinput" style={{ fontSize: 12, }}>Enter BTC</label>
             <input
+              id="btcinput"
               type="text"
               placeholder="insert BTC ammount. e.g: 0.02"
               onChange={this.handleBtcChange}
@@ -186,7 +188,7 @@ class Home extends Component {
 
 const ConnectionOn = () => {
   return (
-    <small style={green}>on</small>
+    <small style={blue}>on</small>
   )
 }
 
@@ -215,8 +217,8 @@ const smallButton = {
   marginLeft: 6
 }
 
-const green = {
-  color: '#28d228',
+const blue = {
+  color: '#0b07ea',
   fontWeight: 'bold'
 }
 
