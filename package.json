@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-price-tracker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "glints test",
   "main": "server.js",
   "scripts": {
