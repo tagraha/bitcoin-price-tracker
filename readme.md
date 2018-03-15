@@ -1,4 +1,4 @@
-This project bootstraped using [react-scratch](https://github.com/tagraha/react-scratch) and temporary hosted at [https://www.betotally.com](https://www.betotally.com) for demo.
+This project bootstraped using [react-scratch](https://github.com/tagraha/react-scratch) and temporary hosted at [https://www.betotally.com](https://www.betotally.com) for demo. we are using wss://real.okcoin.com:10440/websocket for websocket connection
 
 [Changelog](https://github.com/tagraha/bitcoin-price-tracker/blob/master/CHANGELOG.md)
 
