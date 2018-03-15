@@ -14,7 +14,7 @@ import sourceMapSupport from "source-map-support";
 import reactHelmet from 'react-helmet';
 import offline from './offline.js';
 
-import manifest from '../manifest.json';
+// import manifest from '../../static/site.webmanifest.json';
 
 if(process.env.NODE_ENV === 'development') {
   sourceMapSupport.install();
@@ -26,9 +26,9 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.static("static"));
 
-app.get('/manifest.json', function(req, res) {
-  res.status(200).send(manifest);
-})
+// app.get('/manifest.json', function(req, res) {
+//   res.status(200).send(manifest);
+// })
 
 app.get("*", (req, res, next) => {
   const store = configureStore();
@@ -83,7 +83,7 @@ app.get("*", (req, res, next) => {
               <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
               <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
               <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
-              <link rel="manifest" href="/manifest.json">
+              <link rel="manifest" href="/site.webmanifest.json">
               <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#484654">
               <meta name="apple-mobile-web-app-title" content="glints">
               <meta name="application-name" content="glints">
