@@ -17,6 +17,10 @@ npm run start-dev
 
 ![alt text](https://raw.githubusercontent.com/tagraha/bitcoin-price-tracker/master/github-images/lighthouse.png "Lighthousr score")
 
+
 Preview
 -------
+![alt text](https://raw.githubusercontent.com/tagraha/bitcoin-price-tracker/master/github-images/mobilepreview.gif "gif")
+
+
 ![alt text](https://raw.githubusercontent.com/tagraha/bitcoin-price-tracker/master/github-images/preview.png "preview")
