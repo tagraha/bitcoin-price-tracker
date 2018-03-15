@@ -5,7 +5,7 @@ git@github.com:tagraha/bitcoin-price-tracker.git
 ```
 
 ```bash
-cd react-scratch
+cd bitcoin-price-tracker
 npm install
 npm run build
 npm run start-dev
