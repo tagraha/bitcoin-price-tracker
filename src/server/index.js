@@ -24,6 +24,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.static("public"));
+app.use(express.static("static"));
 
 app.get('/manifest.json', function(req, res) {
   res.status(200).send(manifest);
@@ -71,22 +72,33 @@ app.get("*", (req, res, next) => {
         res.send(`<!DOCTYPE html>
           <html>
             <head>
-              <meta charset="utf-8" />
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
               ${head.title}
               ${head.meta}
               ${head.link}
               <link rel="stylesheet" href="/css/main.css">
-              <script src="/bundle.js" defer></script>
+              <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+              <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+              <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+              <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+              <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+              <link rel="manifest" href="/manifest.json">
+              <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#484654">
+              <meta name="apple-mobile-web-app-title" content="glints">
+              <meta name="application-name" content="glints">
+              <meta name="msapplication-TileColor" content="#ffffff">
+              <meta name="theme-color" content="#ffffff">
             </head>
             <body>
               <div id="root">${markup}</div>
+              <script src="/bundle.js" defer></script>
               <script>window.__initialData__ = ${serialize(initialData)}</script>
               <script type="text/javascript">
                 // Serialise the state into the HTML response
                 window.ASYNC_COMPONENTS_STATE = ${serialize(asyncState)}
               </script>
               <script>${offline.serviceWorker}</script>
-              <link rel="manifest" href="/manifest.json">
             </body>
           </html>
         `);
