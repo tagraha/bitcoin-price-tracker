@@ -4,9 +4,9 @@
   "description": "glints test",
   "main": "server.js",
   "scripts": {
-    "release:major": "changelog -M -u https://github.com/tagraha/react-scratch && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin --tags",
-    "release:minor": "changelog -m -u https://github.com/tagraha/react-scratch && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin --tags",
-    "release:patch": "changelog -p -u https://github.com/tagraha/react-scratch && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin --tags",
+    "release:major": "changelog -M -u https://github.com/tagraha/bitcoin-price-tracker && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin --tags",
+    "release:minor": "changelog -m -u https://github.com/tagraha/bitcoin-price-tracker && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin --tags",
+    "release:patch": "changelog -p -u https://github.com/tagraha/bitcoin-price-tracker && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin --tags",
     "start-dev": "cross-env NODE_ENV=development webpack -w & cross-env NODE_ENV=development nodemon ./server.js",
     "build": "webpack -p",
     "clean": "rm -rf public && rm -rf server.js",
