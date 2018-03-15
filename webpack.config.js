@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 const autoprefixer = require("autoprefixer");
 
 const browserConfig = {
@@ -55,6 +56,12 @@ const browserConfig = {
       minify: true,
       maximumFileSizeToCacheInBytes: 4194304,
       staticFileGlobsIgnorePatterns: [/\.json/, /\.map$/, /manifest/i, /\.xml/]
+    }),
+    new OfflinePlugin({
+      ServiceWorker: {
+        minify: false,
+        fileName: 'sw-glints.js',
+      }
     })
   ]
 };

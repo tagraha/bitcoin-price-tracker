@@ -1,6 +1,6 @@
 {
   "short_name": "Glints",
-  "name": "Glints",
+  "name": "Glints - Bitcoin price tracker",
   "icons": [
       {
           "src": "/favicon-32x32.png",

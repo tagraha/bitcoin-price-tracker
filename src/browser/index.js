@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import configureStore from "../shared/configureStore";
 import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
 import asyncBootstrapper from 'react-async-bootstrapper';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import App from "../shared/App";
 
 // Grab the state from a global variable injected into the server-generated HTML
@@ -37,8 +38,10 @@ asyncBootstrapper(app).then(() => {
   );
 });
 
-// (function() {
-//   if('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('/service-worker.js');
-//   }
-// })();
+OfflinePluginRuntime.install();
+
+(function() {
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+})();
