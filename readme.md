@@ -5,8 +5,9 @@ This project bootstraped using [react-scratch](https://github.com/tagraha/react-
 Getting started
 ---------------
 
+clone this repo
 ```bash
-git@github.com:tagraha/bitcoin-price-tracker.git
+git clone git@github.com:tagraha/bitcoin-price-tracker.git
 ```
 
 ```bash
