@@ -1,3 +1,11 @@
+### 1.1.0 (2018-03-16)
+
+##### Other Changes
+
+* **component:**
+  *  move converted BTC to component ([36a4e09b](https://github.com/tagraha/bitcoin-price-tracker/commit/36a4e09bc37a0a0c28a6cc51bf598d5dfb123ec5))
+  *  convert table price stream to react component ([2637cff0](https://github.com/tagraha/bitcoin-price-tracker/commit/2637cff0dcbb87173b1da926cb1489b1f7cfa69d))
+
 ## 1.0.0 (2018-03-15)
 
 ##### Build System / Dependencies
