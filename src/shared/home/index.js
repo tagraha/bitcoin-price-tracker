@@ -128,9 +128,12 @@ class Home extends Component {
               value={converter.inputText}
             /> <br/>
             <small>*we're using buy price to calculate the conversion</small>
-            {!isNaN(converter.userMoney) &&
-              <h3 style={{ color: this.state.moneyColor }}>USD&nbsp;{`${converter.userMoney}`}<small>.{converter.decPart}</small></h3>
-            }
+
+            <ConvertedBtc
+              moneyColor={this.state.moneyColor}
+              userMoney={get(converter, 'userMoney')}
+              decPart={get(converter, 'decPart')}
+            />
           </div>
 
           <div className="column">
@@ -148,7 +151,7 @@ class Home extends Component {
             </small>
 
             <TickerTable tickerPrice={ticker} />
-            
+
             <NavLink to="/about">about the author</NavLink>
             <br/>
             <small>open your console, we're using redux logger</small>
@@ -168,6 +171,16 @@ const ConnectionOn = () => {
 const ConnectionOff = () => {
   return (
     <small style={red}>off</small>
+  )
+}
+
+const ConvertedBtc = (props) => {
+  return (
+    <span>
+      {!isNaN(props.userMoney) &&
+        <h3 style={{ color: props.moneyColor }}>USD&nbsp;{`${props.userMoney}`}<small>.{props.decPart}</small></h3>
+      }
+    </span>
   )
 }
 
