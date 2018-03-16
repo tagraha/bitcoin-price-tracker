@@ -24,6 +24,9 @@ npm run start
 //  production
 ```
 
+Lighthouse Score
+----------------
+
 ![alt text](https://raw.githubusercontent.com/tagraha/bitcoin-price-tracker/master/github-images/lighthouse.png "Lighthousr score")
 
 
