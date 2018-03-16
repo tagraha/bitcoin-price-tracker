@@ -10,6 +10,8 @@ import get from 'lodash/get';
 import { tickerUpdate } from './../../../redux/ticker';
 import { handleInputChange, convertBtc } from './../../../redux/converter';
 
+import TickerTable from './../../component/TickerTable/TickerTable';
+
 import './index.css';
 
 let ws;
@@ -134,48 +136,19 @@ class Home extends Component {
           <div className="column">
             <small className="clearfix">
               websocket connection: {connectionState ? <ConnectionOn /> : <ConnectionOff />}
-                <div className="float-right">
-                  <button
-                    onClick={this.openSocket} 
-                    className="button button-outline"
-                    style={smallButton}
-                    disabled={connectionState}
-                  >open</button>
-                  <button onClick={this.closeConnection} disabled={!connectionState} className="button" style={smallButton}>close</button>
-                </div>
-              </small>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Buy</td>
-                  <td>{ticker.buy}</td>
-                </tr>
-                <tr>
-                  <td>Sell</td>
-                  <td>{ticker.sell}</td>
-                </tr>
-                <tr>
-                  <td>high</td>
-                  <td>{ticker.high}</td>
-                </tr>
-                <tr>
-                  <td>low</td>
-                  <td>{ticker.low}</td>
-                </tr>
-                <tr>
-                  <td>open</td>
-                  <td>{ticker.open}</td>
-                </tr>
-                <tr>
-                  <td>close</td>
-                  <td>{ticker.close}</td>
-                </tr>
-                <tr>
-                  <td>change</td>
-                  <td>{ticker.change}</td>
-                </tr>
-              </tbody>
-            </table>
+              <div className="float-right">
+                <button
+                  onClick={this.openSocket} 
+                  className="button button-outline"
+                  style={smallButton}
+                  disabled={connectionState}
+                >open</button>
+                <button onClick={this.closeConnection} disabled={!connectionState} className="button" style={smallButton}>close</button>
+              </div>
+            </small>
+
+            <TickerTable tickerPrice={ticker} />
+            
             <NavLink to="/about">about the author</NavLink>
             <br/>
             <small>open your console, we're using redux logger</small>
